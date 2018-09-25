@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -25,6 +26,12 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+
+/**
+ * 员工实体类
+ * @author midMoonNight
+ *
+ */
 
 @Data
 @AllArgsConstructor
@@ -46,8 +53,10 @@ public class Employee {
 	@ManyToOne(cascade=CascadeType.ALL)
 	private Department department_id;
 	//角色（权限）id
+	@OneToOne(cascade=CascadeType.ALL)
 	private Role role_id;
 	//职位id
+	@OneToOne(cascade=CascadeType.ALL)
 	private Job job_id;
 	//性别
 	@Enumerated(EnumType.STRING)
@@ -60,10 +69,12 @@ public class Employee {
 	private String address;
 	//员工身份证
 	private String id_card;
-	//员工民族
-	//private National national_id;
+	//员工国籍
+	@ManyToOne(cascade=CascadeType.ALL)
+	private Nationality nationality_id;
 	//员工学历
-	//private Education education_id;
+	@OneToOne(cascade=CascadeType.ALL)
+	private Education education_id;
 	//员工邮箱
 	private String email;
 	//入职时间

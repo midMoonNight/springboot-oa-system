@@ -1,4 +1,4 @@
-package com.example.demo.department.domain;
+package com.example.demo.employee.domain;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -8,15 +8,13 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import com.example.demo.employee.domain.Employee;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 /**
- * 角色实体类，用于设置员工的权限
+ * 教育经历实体类，主要是用于设置员工的学历
  * @author midMoonNight
  *
  */
@@ -24,14 +22,22 @@ import lombok.ToString;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString(exclude= {"id","employee"})
+@ToString(exclude={"id","employee"})
 @Entity
-@Table(name="role")
-public class Role {
+@Table(name="education")
+public class Education {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int id;
-	private int role_name;
-	@OneToOne(cascade=CascadeType.ALL,mappedBy="role_id")
+	private Long id;
+	//学历
+	private String education_name;
+	//学校
+	private String university;
+	//学院
+	private String institute;
+	//专业
+	private String major;
+	//员工学历
+	@OneToOne(cascade=CascadeType.ALL,mappedBy="education_id")
 	private Employee employee;
 }

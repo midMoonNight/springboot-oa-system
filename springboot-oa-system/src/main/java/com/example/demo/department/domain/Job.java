@@ -16,6 +16,12 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+/**
+ * 职位实体类
+ * @author midMoonNight
+ *
+ */
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

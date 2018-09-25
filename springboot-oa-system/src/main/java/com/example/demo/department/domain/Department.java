@@ -47,7 +47,7 @@ public class Department {
 	//部门创建时间
 	@Temporal(TemporalType.TIMESTAMP)
 	@JsonFormat(pattern="yyyy/MM/dd hh:mm:ss",timezone="GMT+8")
-	private Date createTime;
+	private Date create_time;
 	//部门的状态，是还在使用的部门，还是已经废除的部门
 	@Enumerated(EnumType.STRING)
 	private Status deptStatus = Status.activity;
