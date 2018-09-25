@@ -32,7 +32,7 @@ public class DepartmentController {
 	@PostMapping
 	public ExtAjaxResponse save(@RequestBody Department dept) {
 		try {
-			if (!"".equals(dept.getName()) && dept.getName() != null) {
+			if (!"".equals(dept.getDepartment_name()) && dept.getDepartment_name() != null) {
 				deptService.save(dept);
 			}
 			return new ExtAjaxResponse(true, "保存成功!");

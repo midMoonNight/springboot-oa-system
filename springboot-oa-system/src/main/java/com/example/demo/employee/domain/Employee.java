@@ -2,18 +2,23 @@ package com.example.demo.employee.domain;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import com.example.demo.common.beans.Gender;
 import com.example.demo.common.beans.Status;
+import com.example.demo.department.domain.Department;
+import com.example.demo.department.domain.Job;
+import com.example.demo.department.domain.Role;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import lombok.AllArgsConstructor;
@@ -38,11 +43,12 @@ public class Employee {
 	//工资
 	private int wages=0;
 	//部门id
-	private Long department_id;
+	@ManyToOne(cascade=CascadeType.ALL)
+	private Department department_id;
 	//角色（权限）id
-	private Long role_id;
+	private Role role_id;
 	//职位id
-	private Long job_id;
+	private Job job_id;
 	//性别
 	@Enumerated(EnumType.STRING)
 	private Gender gender;
@@ -55,9 +61,9 @@ public class Employee {
 	//员工身份证
 	private String id_card;
 	//员工民族
-	private Long national_id;
+	//private National national_id;
 	//员工学历
-	private Long education_id;
+	//private Education education_id;
 	//员工邮箱
 	private String email;
 	//入职时间
@@ -71,4 +77,7 @@ public class Employee {
 	//设置员工的状态值，是在职的还是离职的
 	@Enumerated(EnumType.STRING)
 	private Status status = Status.activity;
+	//上级领导
+	@ManyToOne(cascade=CascadeType.ALL)
+	private Employee employee_leader;
 }
