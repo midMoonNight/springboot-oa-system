@@ -18,7 +18,6 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import com.example.demo.common.beans.Status;
-import com.example.demo.employee.domain.Employee;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import lombok.AllArgsConstructor;
@@ -51,12 +50,12 @@ public class Department {
 	//部门的状态，是还在使用的部门，还是已经废除的部门
 	@Enumerated(EnumType.STRING)
 	private Status deptStatus = Status.activity;
-	//部门员工
-	@OneToMany(cascade=CascadeType.ALL,mappedBy="department_id")
-	private List<Employee> employees = new ArrayList<>();
 	//上级部门
 	@ManyToOne(cascade=CascadeType.ALL)
 	private Department department_parent;
+	//下级部门
+	@OneToMany(cascade=CascadeType.ALL,mappedBy="department_parent")
+	private List<Department> childrens = new ArrayList<>();	
 	//部门职位
 	@OneToMany(cascade=CascadeType.ALL,mappedBy="department_job_id")
 	private List<Job> jobs = new ArrayList<>();

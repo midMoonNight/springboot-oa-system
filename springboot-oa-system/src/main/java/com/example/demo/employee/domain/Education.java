@@ -1,11 +1,9 @@
 package com.example.demo.employee.domain;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -22,7 +20,7 @@ import lombok.ToString;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString(exclude={"id","employee"})
+@ToString(exclude="id")
 @Entity
 @Table(name="education")
 public class Education {
@@ -37,7 +35,4 @@ public class Education {
 	private String institute;
 	//专业
 	private String major;
-	//员工学历
-	@OneToOne(cascade=CascadeType.ALL,mappedBy="education_id")
-	private Employee employee;
 }

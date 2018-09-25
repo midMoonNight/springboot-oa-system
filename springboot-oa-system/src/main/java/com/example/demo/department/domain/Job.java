@@ -6,10 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
-
-import com.example.demo.employee.domain.Employee;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -25,7 +22,7 @@ import lombok.ToString;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString(exclude= {"id","department_job_id","employee_id"})
+@ToString(exclude= {"id","department_job_id"})
 @Entity
 @Table(name="job")
 public class Job {
@@ -35,6 +32,4 @@ public class Job {
 	private String name;
 	@ManyToOne(cascade=CascadeType.ALL)
 	private Department department_job_id;
-	@OneToOne(cascade=CascadeType.ALL,mappedBy="job_id")
-	private Employee employee_id;
 }
