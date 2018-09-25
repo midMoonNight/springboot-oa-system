@@ -1,4 +1,4 @@
-package com.example.demo.dept.domain;
+package com.example.demo.department.domain;
 
 import java.util.Date;
 
@@ -12,6 +12,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.example.demo.common.beans.Status;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import lombok.AllArgsConstructor;
@@ -24,8 +25,8 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString(exclude="id")
 @Entity
-@Table(name="dept")
-public class Dept {
+@Table(name="department")
+public class Department {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -37,5 +38,5 @@ public class Dept {
 	@JsonFormat(pattern="yyyy/MM/dd hh:mm:ss",timezone="GMT+8")
 	private Date createTime;
 	@Enumerated(EnumType.STRING)
-	private DeptStatus deptStatus = DeptStatus.activity;
+	private Status deptStatus = Status.activity;
 }

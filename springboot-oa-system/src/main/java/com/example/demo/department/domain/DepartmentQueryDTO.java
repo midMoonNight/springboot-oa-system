@@ -1,4 +1,4 @@
-package com.example.demo.dept.domain.dto;
+package com.example.demo.department.domain;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -13,8 +13,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import com.example.demo.dept.domain.Dept;
-
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -22,7 +20,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class DeptQueryDTO {
+public class DepartmentQueryDTO {
 	
 	private String name;
 	//人数上限
@@ -35,10 +33,10 @@ public class DeptQueryDTO {
 	private Date createTimeEnd;
 	
 	@SuppressWarnings("serial")
-	public static Specification<Dept> getWhereClause(final DeptQueryDTO deptQueryDTO) {
-		return new Specification<Dept>() {
+	public static Specification<Department> getWhereClause(final DepartmentQueryDTO deptQueryDTO) {
+		return new Specification<Department>() {
 			@Override
-			public Predicate toPredicate(Root<Dept> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
+			public Predicate toPredicate(Root<Department> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
 				List<Predicate> predicate = new ArrayList<>();
 
 				if (StringUtils.isNotBlank(deptQueryDTO.getName())) {
@@ -46,11 +44,11 @@ public class DeptQueryDTO {
 							"%" + deptQueryDTO.getName() + "%"));
 				}
 				if (deptQueryDTO.getLowerLimit()>0) {
-					predicate.add(criteriaBuilder.greaterThanOrEqualTo(root.get("number").as(Integer.class),
+					predicate.add(criteriaBuilder.greaterThanOrEqualTo(root.get("number").as(int.class),
 							deptQueryDTO.getLowerLimit()));
 				}
 				if (deptQueryDTO.getUpperLimit()>0) {
-					predicate.add(criteriaBuilder.lessThanOrEqualTo(root.get("number").as(Integer.class),
+					predicate.add(criteriaBuilder.lessThanOrEqualTo(root.get("number").as(int.class),
 							deptQueryDTO.getUpperLimit()));
 				}
 				if (null!=deptQueryDTO.getCreateTimeStart()) {

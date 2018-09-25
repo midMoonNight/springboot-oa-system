@@ -1,4 +1,4 @@
-package com.example.demo.dept.service;
+package com.example.demo.department.service;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -11,50 +11,54 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.dept.domain.Dept;
-import com.example.demo.dept.domain.DeptStatus;
-import com.example.demo.dept.repository.DeptRepository;
+import com.example.demo.common.beans.Status;
+import com.example.demo.department.domain.Department;
+import com.example.demo.department.repository.DepartmentRepository;
 
 @Service
-public class DeptService implements IDeptService {
+public class DepartmentService implements IDepartmentService {
 	@Autowired
-	private DeptRepository deptRepository;
+	private DepartmentRepository deptRepository;
 
 	@Override
-	public void save(Dept dept) {
+	public void save(Department dept) {
 		deptRepository.save(dept);
 	}
 
 	@Override
-	public void saveAll(List<Dept> depts) {
+	public void saveAll(List<Department> depts) {
 		deptRepository.saveAll(depts);
 	}
 
 	@Override
 	public void deleteById(Long id) {
-		Dept dept = deptRepository.findById(id).get();
-		dept.setDeptStatus(DeptStatus.disable);
+		Department dept = deptRepository.findById(id).get();
+		if (dept != null) {
+			dept.setDeptStatus(Status.disable);
+		}
 		deptRepository.save(dept);
 	}
 
 	@Override
 	public void deleteAll(Long[] ids) {
 		List<Long> idList = new ArrayList<>(Arrays.asList(ids));	
-		List<Dept> depts = (List<Dept>) deptRepository.findAllById(idList);
-		for (Dept dept : depts) {
-			dept.setDeptStatus(DeptStatus.disable);
+		List<Department> depts = (List<Department>) deptRepository.findAllById(idList);
+		if (depts.size() >0) {
+			for (Department dept : depts) {
+				dept.setDeptStatus(Status.disable);
+			}
 		}
 		deptRepository.saveAll(depts);
 	}
 
 	@Override
-	public Optional<Dept> findById(Long id) {
+	public Optional<Department> findById(Long id) {
 		return deptRepository.findById(id);
 	}
 
 	@Override
-	public List<Dept> findAll() {
-		return (List<Dept>) deptRepository.findAll();
+	public List<Department> findAll() {
+		return (List<Department>) deptRepository.findAll();
 	}
 
 	@Override
@@ -68,7 +72,7 @@ public class DeptService implements IDeptService {
 	}
 
 	@Override
-	public Page<Dept> findAll(Specification<Dept> spec, Pageable pageable) {
+	public Page<Department> findAll(Specification<Department> spec, Pageable pageable) {
 		return deptRepository.findAll(spec, pageable);
 	}
 
