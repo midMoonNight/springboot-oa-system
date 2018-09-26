@@ -47,7 +47,7 @@ public class JobController {
 	public ExtAjaxResponse update(@PathVariable("id") Long id,@RequestBody Job job) {
 		try {
 			Job entity = jobService.findById(id).get();
-			BeanUtils.copyProperties(entity, job);
+			BeanUtils.copyProperties(job, entity);
 			jobService.save(entity);
 			return new ExtAjaxResponse(true, "删除成功!");
 		} catch (Exception e) {

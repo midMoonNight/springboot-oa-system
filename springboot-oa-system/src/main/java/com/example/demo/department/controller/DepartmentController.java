@@ -74,7 +74,7 @@ public class DepartmentController {
 	public ExtAjaxResponse update(@PathVariable("id") Long id,@RequestBody Department dept) {
 		try {
 			Department entity = deptService.findById(id).get();
-			BeanUtils.copyProperties(entity, dept);
+			BeanUtils.copyProperties(dept, entity);
 			deptService.save(entity);
 			
 			return new ExtAjaxResponse(true, "修改成功!");

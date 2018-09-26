@@ -73,7 +73,7 @@ public class EmployeeController {
 	public ExtAjaxResponse update(@PathVariable("id") Long id,@RequestBody Employee employee) {
 		try {
 			Employee entity = employeeService.findById(id).get();
-			BeanUtils.copyProperties(entity, employee);
+			BeanUtils.copyProperties(employee, entity);
 			employeeService.save(entity);
 			
 			return new ExtAjaxResponse(true, "修改成功!");

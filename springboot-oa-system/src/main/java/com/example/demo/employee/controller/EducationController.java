@@ -47,7 +47,7 @@ public class EducationController {
 	public ExtAjaxResponse update(@PathVariable("id") Long id,@RequestBody Education education) {
 		try {
 			Education entity = educationService.findById(id).get();
-			BeanUtils.copyProperties(entity, education);
+			BeanUtils.copyProperties(education, entity);
 			educationService.save(entity);
 			return new ExtAjaxResponse(true, "删除成功!");
 		} catch (Exception e) {

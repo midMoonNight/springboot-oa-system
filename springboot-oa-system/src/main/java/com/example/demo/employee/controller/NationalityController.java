@@ -47,7 +47,7 @@ public class NationalityController {
 	public ExtAjaxResponse update(@PathVariable("id") int id,@RequestBody Nationality nationality) {
 		try {
 			Nationality entity = nationalityService.findById(id).get();
-			BeanUtils.copyProperties(entity, nationality);
+			BeanUtils.copyProperties(nationality, entity);
 			nationalityService.save(entity);
 			return new ExtAjaxResponse(true, "删除成功!");
 		} catch (Exception e) {
