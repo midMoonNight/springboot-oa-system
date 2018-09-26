@@ -1,6 +1,8 @@
 package com.example.demo.employee.domain;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -10,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -36,7 +39,7 @@ import lombok.ToString;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString(exclude="id")
+@ToString(exclude= {"id","department_id","role_id","job_id","nationality_id","education_id","subordinate"})
 @Entity
 @Table(name="employee")
 public class Employee {
@@ -91,4 +94,7 @@ public class Employee {
 	//上级领导
 	@ManyToOne(cascade=CascadeType.ALL)
 	private Employee employee_leader;
+	//下属
+	@OneToMany(cascade=CascadeType.ALL,mappedBy="employee_leader")
+	private List<Employee> subordinate = new ArrayList<>();
 }

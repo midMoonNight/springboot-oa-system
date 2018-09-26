@@ -41,7 +41,7 @@ public class DepartmentService implements IDepartmentService {
 
 	@Override
 	public void deleteAll(Long[] ids) {
-		List<Long> idList = new ArrayList<>(Arrays.asList(ids));	
+		List<Long> idList = new ArrayList<>(Arrays.asList(ids));
 		List<Department> depts = (List<Department>) deptRepository.findAllById(idList);
 		if (depts.size() >0) {
 			for (Department dept : depts) {

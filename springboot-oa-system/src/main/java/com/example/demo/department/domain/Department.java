@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -28,7 +29,7 @@ import lombok.ToString;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString(exclude="id")
+@ToString(exclude= {"id","childrens"})
 @Entity
 @Table(name="department")
 public class Department {
@@ -36,6 +37,7 @@ public class Department {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	//部门名称
+	@Column(name="department_name",unique=true)
 	private String department_name;
 	//部门编号
 	private String department_number;
@@ -55,8 +57,5 @@ public class Department {
 	private Department department_parent;
 	//下级部门
 	@OneToMany(cascade=CascadeType.ALL,mappedBy="department_parent")
-	private List<Department> childrens = new ArrayList<>();	
-	//部门职位
-	@OneToMany(cascade=CascadeType.ALL,mappedBy="department_job_id")
-	private List<Job> jobs = new ArrayList<>();
+	private List<Department> childrens = new ArrayList<>();
 }

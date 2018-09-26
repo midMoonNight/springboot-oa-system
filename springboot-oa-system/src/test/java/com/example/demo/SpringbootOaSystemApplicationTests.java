@@ -12,7 +12,9 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import com.example.demo.common.beans.Status;
 import com.example.demo.department.domain.Department;
+import com.example.demo.department.domain.Role;
 import com.example.demo.department.service.IDepartmentService;
+import com.example.demo.department.service.IRoleService;
 import com.example.demo.employee.service.IEmployeeService;
 
 @RunWith(SpringRunner.class)
@@ -23,6 +25,9 @@ public class SpringbootOaSystemApplicationTests {
 	private IDepartmentService departmentService;
 	@Autowired
 	private IEmployeeService employeeService;
+	@Autowired
+	private IRoleService roleservice;
+	
 	
 	@Test
 	public void contextLoads() {
@@ -74,6 +79,7 @@ public class SpringbootOaSystemApplicationTests {
 		departmentService.save(org1);
 	}
 	
+	@Test
 	public void departmentListSave() {
 		List<Department> departments = new ArrayList<>();
 		for (int i = 0; i < 100; i++) {
@@ -85,13 +91,55 @@ public class SpringbootOaSystemApplicationTests {
 			department.setCreate_time(new Date());
 			departments.add(department);
 		}
+		departmentService.saveAll(departments);
+	}
+	
+	@Test
+	public void departmentTestUnique() {
+		Department department = new Department();
+		department.setDepartment_name("department_name1");
+		department.setDepartment_number("department_number1");
+		department.setDuties("duties");
+		department.setIntroduction("introduction");
+		department.setCreate_time(new Date());
+		departmentService.save(department);
+	}
+	
+	@Test
+	public void departmentDelete() {
+		//departmentService.deleteById(1L);
+		Long[] ids = new Long[20];
+		
+		for(int i=2;i<12;i++) {
+			ids[i-2] = (long) i;
+		}
+		departmentService.deleteAll(ids);
+	}
+
+	@Test
+	public void departmentFind() {
+		Department department = departmentService.findById(1L).get();
+		System.out.println("department::"+department);
+		List<Department> departments = departmentService.findAll();
+		for (Department dept : departments) {
+			System.out.println(dept);
+		}
+	}
+	
+	@Test
+	public void roleSave() {
+		Role role = new Role();
+		role.setRole_name("role_name111");
+		roleservice.save(role);
+	}
+	
+	@Test
+	public void roleFind() {
+		Role role = roleservice.findById(1).get();
+		System.out.println(role);
 	}
 	
 	public void jobSave() {
-		
-	}
-	
-	public void roleSave() {
 		
 	}
 	
