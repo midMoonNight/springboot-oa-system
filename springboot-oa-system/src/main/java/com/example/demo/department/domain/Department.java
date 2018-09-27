@@ -46,8 +46,8 @@ public class Department {
 	//部门职责
 	private String duties;
 	//部门创建时间
-	@Temporal(TemporalType.TIMESTAMP)
-	@JsonFormat(pattern="yyyy/MM/dd hh:mm:ss",timezone="GMT+8")
+	@Temporal(TemporalType.DATE)
+	@JsonFormat(pattern="yyyy/MM/dd",timezone="GMT+8")
 	private Date create_time;
 	//部门的状态，是还在使用的部门，还是已经废除的部门
 	@Enumerated(EnumType.STRING)

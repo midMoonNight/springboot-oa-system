@@ -23,6 +23,7 @@ import com.example.demo.common.beans.Status;
 import com.example.demo.department.domain.Department;
 import com.example.demo.department.domain.Job;
 import com.example.demo.department.domain.Role;
+import com.example.demo.employee.util.EmployeeRadomPassword;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import lombok.AllArgsConstructor;
@@ -49,7 +50,7 @@ public class Employee {
 	//员工帐号
 	private String account;
 	//员工密码
-	private String password;
+	private String password = EmployeeRadomPassword.getStringRandom(6);
 	//工资
 	private int wages=0;
 	//部门id

@@ -1,5 +1,6 @@
 package com.example.demo.department.controller;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -32,7 +33,7 @@ public class DepartmentController {
 	@PostMapping
 	public ExtAjaxResponse save(@RequestBody Department dept) {
 		try {
-			if (!"".equals(dept.getDepartment_name()) && dept.getDepartment_name() != null) {
+			if (StringUtils.isNoneBlank(dept.getDepartment_name(), dept.getDepartment_number())) {
 				deptService.save(dept);
 			}
 			return new ExtAjaxResponse(true, "保存成功!");

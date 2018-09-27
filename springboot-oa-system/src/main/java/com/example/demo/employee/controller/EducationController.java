@@ -1,5 +1,6 @@
 package com.example.demo.employee.controller;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,7 +25,7 @@ public class EducationController {
 	@PostMapping
 	public ExtAjaxResponse save(@RequestBody Education education) {
 		try {
-			if (education.getEducation_name() != null) {
+			if (StringUtils.isNotBlank(education.getEducation_name())) {
 				educationService.save(education);
 			}
 			return new ExtAjaxResponse(true, "保存成功!");

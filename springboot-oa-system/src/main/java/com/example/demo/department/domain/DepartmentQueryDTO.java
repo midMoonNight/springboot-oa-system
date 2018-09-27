@@ -22,14 +22,11 @@ import lombok.ToString;
 @ToString
 public class DepartmentQueryDTO {
 	
-	private String name;
-	//人数上限
-	private int upperLimit = 0;
-	//人数下限
-	private int lowerLimit = 0;
-	@DateTimeFormat(pattern="yyyy/MM/dd HH:mm:ss")  
+	private String department_name;
+	private String department_number;
+	@DateTimeFormat(pattern="yyyy/MM/dd")
 	private Date createTimeStart;
-	@DateTimeFormat(pattern="yyyy/MM/dd HH:mm:ss")  
+	@DateTimeFormat(pattern="yyyy/MM/dd")
 	private Date createTimeEnd;
 	
 	@SuppressWarnings("serial")
@@ -39,17 +36,13 @@ public class DepartmentQueryDTO {
 			public Predicate toPredicate(Root<Department> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
 				List<Predicate> predicate = new ArrayList<>();
 
-				if (StringUtils.isNotBlank(deptQueryDTO.getName())) {
-					predicate.add(criteriaBuilder.like(root.get("name").as(String.class),
-							"%" + deptQueryDTO.getName() + "%"));
+				if (StringUtils.isNotBlank(deptQueryDTO.getDepartment_name())) {
+					predicate.add(criteriaBuilder.like(root.get("department_name").as(String.class),
+							"%" + deptQueryDTO.getDepartment_name() + "%"));
 				}
-				if (deptQueryDTO.getLowerLimit()>0) {
-					predicate.add(criteriaBuilder.greaterThanOrEqualTo(root.get("number").as(int.class),
-							deptQueryDTO.getLowerLimit()));
-				}
-				if (deptQueryDTO.getUpperLimit()>0) {
-					predicate.add(criteriaBuilder.lessThanOrEqualTo(root.get("number").as(int.class),
-							deptQueryDTO.getUpperLimit()));
+				if (StringUtils.isNotBlank(deptQueryDTO.getDepartment_number())) {
+					predicate.add(criteriaBuilder.like(root.get("department_number").as(String.class),
+							"%" + deptQueryDTO.getDepartment_number() + "%"));
 				}
 				if (null!=deptQueryDTO.getCreateTimeStart()) {
 					predicate.add(criteriaBuilder.greaterThanOrEqualTo(root.get("createTime").as(Date.class),

@@ -1,5 +1,6 @@
 package com.example.demo.department.controller;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,7 +25,7 @@ public class JobController {
 	@PostMapping
 	public ExtAjaxResponse save(@RequestBody Job job) {
 		try {
-			if (job.getName() != null && job.getDepartment_job_id() != null) {
+			if (StringUtils.isNotBlank(job.getName()) && job.getDepartment_job_id() != null) {
 				jobService.save(job);
 			}
 			return new ExtAjaxResponse(true, "保存成功!");

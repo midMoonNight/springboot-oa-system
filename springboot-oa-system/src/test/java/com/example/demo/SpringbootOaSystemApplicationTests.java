@@ -3,6 +3,7 @@ package com.example.demo;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,6 +16,7 @@ import com.example.demo.department.domain.Department;
 import com.example.demo.department.domain.Role;
 import com.example.demo.department.service.IDepartmentService;
 import com.example.demo.department.service.IRoleService;
+import com.example.demo.employee.domain.Employee;
 import com.example.demo.employee.service.IEmployeeService;
 
 @RunWith(SpringRunner.class)
@@ -95,6 +97,17 @@ public class SpringbootOaSystemApplicationTests {
 	}
 	
 	@Test
+	public void departmentSaveOne() {
+		Department department = new Department();
+		department.setDepartment_name("department_name222");
+		department.setDepartment_number("department_number222");
+		department.setDuties("duties222");
+		department.setIntroduction("introduction222");
+		department.setCreate_time(new Date());
+		departmentService.save(department);
+	}
+	
+	@Test
 	public void departmentTestUnique() {
 		Department department = new Department();
 		department.setDepartment_name("department_name1");
@@ -140,6 +153,16 @@ public class SpringbootOaSystemApplicationTests {
 		System.out.println(role);
 	}
 	
+	@Test
+	public void EmployeeSaveTestPassword() {
+		Employee employee = new Employee();
+		employee.setAccount("account5555555555111");
+		employeeService.save(employee);
+		
+		/*employee = employeeService.findById(1L).get();
+		System.out.println(employee);*/
+	}
+	
 	public void jobSave() {
 		
 	}
@@ -151,5 +174,30 @@ public class SpringbootOaSystemApplicationTests {
 	public void nationalitySave() {
 		
 	}
+	
+	/*public static void main(String[] args) {
+		System.out.println("aaa");
+		Random random = new Random();
+		System.out.println(getStringRandom(6));
+	}
+*/
+	//生成随机数字和字母,  
+    public static String getStringRandom(int length) {  
 
+        String val = "";  
+        Random random = new Random();        
+        //length为几位密码 
+        for(int i = 0; i < length; i++) {          
+            String charOrNum = random.nextInt(2) % 2 == 0 ? "char" : "num";  
+            //输出字母还是数字  
+            if( "char".equalsIgnoreCase(charOrNum) ) {  
+                //输出是大写字母还是小写字母  
+                int temp = random.nextInt(2) % 2 == 0 ? 65 : 97;
+                val += (char)(random.nextInt(26) + temp);  
+            } else if( "num".equalsIgnoreCase(charOrNum) ) {  
+                val += String.valueOf(random.nextInt(10));  
+            }  
+        }  
+        return val;  
+    }
 }
