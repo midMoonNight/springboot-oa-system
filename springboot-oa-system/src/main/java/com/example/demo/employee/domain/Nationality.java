@@ -27,7 +27,7 @@ public class Nationality {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 	//国籍
-	private String nationality_name;
+	private String nationalityName;
 	//民族
 	private String nation;
 }

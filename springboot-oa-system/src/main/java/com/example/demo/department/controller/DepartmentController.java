@@ -33,7 +33,7 @@ public class DepartmentController {
 	@PostMapping
 	public ExtAjaxResponse save(@RequestBody Department dept) {
 		try {
-			if (StringUtils.isNoneBlank(dept.getDepartment_name(), dept.getDepartment_number())) {
+			if (StringUtils.isNoneBlank(dept.getDepartmentName(), dept.getDepartmentNumber())) {
 				deptService.save(dept);
 			}
 			return new ExtAjaxResponse(true, "保存成功!");
@@ -88,7 +88,7 @@ public class DepartmentController {
 	 */
 	@GetMapping(value="{id}")
 	public Department findById(@PathVariable("id") Long id) {
-		return deptService.findById(id).get();		
+		return deptService.findById(id).get();
 	}
 	/**
 	 * 分页查询所有部门

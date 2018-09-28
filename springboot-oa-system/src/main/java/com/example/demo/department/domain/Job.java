@@ -22,7 +22,7 @@ import lombok.ToString;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString(exclude= {"id","department_job_id"})
+@ToString(exclude= {"id","departmentId"})
 @Entity
 @Table(name="job")
 public class Job {
@@ -31,5 +31,5 @@ public class Job {
 	private Long id;
 	private String name;
 	@ManyToOne(cascade=CascadeType.ALL)
-	private Department department_job_id;
+	private Department departmentId;
 }

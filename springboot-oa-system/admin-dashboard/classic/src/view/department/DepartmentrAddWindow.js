@@ -23,12 +23,12 @@ Ext.define('Admin.view.department.DepartmentAddWindow',{
             readOnly: true
         }, {
             xtype: 'textfield',
-            fieldLabel: '部门名称',
-            name:'department_name'
+            fieldLabel: '部门编号',
+            name:'departmentNumber'
         }, {
             xtype: 'textfield',
-            fieldLabel: '部门编号',
-            name:'department_number'
+            fieldLabel: '部门名称',
+            name:'departmentName'
         }, {
             xtype: 'textfield',
             fieldLabel: '部门简介',
@@ -40,7 +40,7 @@ Ext.define('Admin.view.department.DepartmentAddWindow',{
         }, {
             xtype: 'datefield',
             fieldLabel: '创建时间',
-            name:'create_time',
+            name:'createTime',
             format: 'Y/m/d'
         }],
 		buttons: [ 

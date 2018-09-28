@@ -5,7 +5,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 
-public class ExtjsPageRequest 
+public class ExtjsPageRequest
 {
 	//分页条件
 	private int 	page 	= 1;

@@ -22,8 +22,8 @@ import lombok.ToString;
 @ToString
 public class DepartmentQueryDTO {
 	
-	private String department_name;
-	private String department_number;
+	private String departmentName;
+	private String departmentNumber;
 	@DateTimeFormat(pattern="yyyy/MM/dd")
 	private Date createTimeStart;
 	@DateTimeFormat(pattern="yyyy/MM/dd")
@@ -36,13 +36,13 @@ public class DepartmentQueryDTO {
 			public Predicate toPredicate(Root<Department> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
 				List<Predicate> predicate = new ArrayList<>();
 
-				if (StringUtils.isNotBlank(deptQueryDTO.getDepartment_name())) {
-					predicate.add(criteriaBuilder.like(root.get("department_name").as(String.class),
-							"%" + deptQueryDTO.getDepartment_name() + "%"));
+				if (StringUtils.isNotBlank(deptQueryDTO.getDepartmentName())) {
+					predicate.add(criteriaBuilder.like(root.get("departmentName").as(String.class),
+							"%" + deptQueryDTO.getDepartmentName() + "%"));
 				}
-				if (StringUtils.isNotBlank(deptQueryDTO.getDepartment_number())) {
-					predicate.add(criteriaBuilder.like(root.get("department_number").as(String.class),
-							"%" + deptQueryDTO.getDepartment_number() + "%"));
+				if (StringUtils.isNotBlank(deptQueryDTO.getDepartmentNumber())) {
+					predicate.add(criteriaBuilder.like(root.get("departmentNumber").as(String.class),
+							"%" + deptQueryDTO.getDepartmentNumber() + "%"));
 				}
 				if (null!=deptQueryDTO.getCreateTimeStart()) {
 					predicate.add(criteriaBuilder.greaterThanOrEqualTo(root.get("createTime").as(Date.class),

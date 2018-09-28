@@ -35,48 +35,48 @@ public class SpringbootOaSystemApplicationTests {
 	public void contextLoads() {
 		
 		Department org1 = new Department();
-		org1.setDepartment_number("D00001");
-		org1.setDepartment_name("东莞理工学院");
+		org1.setDepartmentNumber("D00001");
+		org1.setDepartmentName("东莞理工学院");
 
 		Department org2 = new Department();
-		org2.setDepartment_number("D00002");
-		org2.setDepartment_name("东莞理工学院计算机与网络安全学院");
+		org2.setDepartmentNumber("D00002");
+		org2.setDepartmentName("东莞理工学院计算机与网络安全学院");
 
 		Department org3 = new Department();
-		org3.setDepartment_number("D00003");
-		org3.setDepartment_name("机械工程学院");
+		org3.setDepartmentNumber("D00003");
+		org3.setDepartmentName("机械工程学院");
 
 		Department org4 = new Department();
-		org4.setDepartment_number("D00004");
-		org4.setDepartment_name("国际学院");
+		org4.setDepartmentNumber("D00004");
+		org4.setDepartmentName("国际学院");
 
 		Department org5 = new Department();
-		org5.setDepartment_number("D00021");
-		org5.setDepartment_name("计算机科学与应用专业");
+		org5.setDepartmentNumber("D00021");
+		org5.setDepartmentName("计算机科学与应用专业");
 
 		Department org6 = new Department();
-		org6.setDepartment_number("D00022");
-		org6.setDepartment_name("软件工程专业");
+		org6.setDepartmentNumber("D00022");
+		org6.setDepartmentName("软件工程专业");
 
 		Department org7 = new Department();
-		org7.setDepartment_number("D00023");
-		org7.setDepartment_name("网络安全专业");
+		org7.setDepartmentNumber("D00023");
+		org7.setDepartmentName("网络安全专业");
 		
 		org1.getChildrens().add(org2);
 		org1.getChildrens().add(org3);
 		org1.getChildrens().add(org4);
 
-		org2.setDepartment_parent(org1);
-		org3.setDepartment_parent(org1);
-		org4.setDepartment_parent(org1);
+		org2.setDepartmentParent(org1);
+		org3.setDepartmentParent(org1);
+		org4.setDepartmentParent(org1);
 
 		org2.getChildrens().add(org5);
 		org2.getChildrens().add(org6);
 		org2.getChildrens().add(org7);
 
-		org5.setDepartment_parent(org2);
-		org6.setDepartment_parent(org2);
-		org7.setDepartment_parent(org2);
+		org5.setDepartmentParent(org2);
+		org6.setDepartmentParent(org2);
+		org7.setDepartmentParent(org2);
 		
 		departmentService.save(org1);
 	}
@@ -86,11 +86,11 @@ public class SpringbootOaSystemApplicationTests {
 		List<Department> departments = new ArrayList<>();
 		for (int i = 0; i < 100; i++) {
 			Department department = new Department();
-			department.setDepartment_name("department_name"+i);
-			department.setDepartment_number("department_number"+i);
+			department.setDepartmentName("departmentName"+i);
+			department.setDepartmentNumber("departmentNumber"+i);
 			department.setDuties("duties"+i);
 			department.setIntroduction("introduction"+i);
-			department.setCreate_time(new Date());
+			department.setCreateTime(new Date());
 			departments.add(department);
 		}
 		departmentService.saveAll(departments);
@@ -99,22 +99,22 @@ public class SpringbootOaSystemApplicationTests {
 	@Test
 	public void departmentSaveOne() {
 		Department department = new Department();
-		department.setDepartment_name("department_name222");
-		department.setDepartment_number("department_number222");
+		department.setDepartmentName("departmentName222");
+		department.setDepartmentNumber("departmentNumber222");
 		department.setDuties("duties222");
 		department.setIntroduction("introduction222");
-		department.setCreate_time(new Date());
+		department.setCreateTime(new Date());
 		departmentService.save(department);
 	}
 	
 	@Test
 	public void departmentTestUnique() {
 		Department department = new Department();
-		department.setDepartment_name("department_name1");
-		department.setDepartment_number("department_number1");
+		department.setDepartmentName("departmentName1");
+		department.setDepartmentNumber("departmentNumber1");
 		department.setDuties("duties");
 		department.setIntroduction("introduction");
-		department.setCreate_time(new Date());
+		department.setCreateTime(new Date());
 		departmentService.save(department);
 	}
 	
@@ -142,7 +142,7 @@ public class SpringbootOaSystemApplicationTests {
 	@Test
 	public void roleSave() {
 		Role role = new Role();
-		role.setRole_name("role_name111");
+		role.setRoleName("roleName111");
 		roleservice.save(role);
 	}
 	

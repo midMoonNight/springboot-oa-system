@@ -25,7 +25,7 @@ public class JobController {
 	@PostMapping
 	public ExtAjaxResponse save(@RequestBody Job job) {
 		try {
-			if (StringUtils.isNotBlank(job.getName()) && job.getDepartment_job_id() != null) {
+			if (StringUtils.isNotBlank(job.getName()) && job.getDepartmentId() != null) {
 				jobService.save(job);
 			}
 			return new ExtAjaxResponse(true, "保存成功!");

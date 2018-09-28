@@ -5,11 +5,11 @@ Ext.define('Admin.model.department.DepartmentModel', {
 	],
     fields: [
 		 {type: 'int' ,name: 'id'}
-        ,{type: 'string' ,name: 'department_name'}
-		,{type: 'string' ,name: 'department_number'}
+        ,{type: 'string' ,name: 'departmentName'}
+		,{type: 'string' ,name: 'departmentNumber'}
 		,{type: 'string' ,name: 'introduction'}
         ,{type: 'string' ,name: 'duties'}
-        ,{type: 'date' ,name: 'create_time',dateFormat:'Y/m/d'}
+        ,{type: 'date' ,name: 'createTime',dateFormat:'Y/m/d'}
     ],
 	proxy: {
 		type: 'rest',

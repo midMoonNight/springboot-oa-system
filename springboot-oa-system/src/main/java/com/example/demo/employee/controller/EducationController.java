@@ -25,7 +25,7 @@ public class EducationController {
 	@PostMapping
 	public ExtAjaxResponse save(@RequestBody Education education) {
 		try {
-			if (StringUtils.isNotBlank(education.getEducation_name())) {
+			if (StringUtils.isNotBlank(education.getEducationName())) {
 				educationService.save(education);
 			}
 			return new ExtAjaxResponse(true, "保存成功!");

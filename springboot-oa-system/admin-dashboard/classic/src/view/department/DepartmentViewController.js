@@ -12,14 +12,23 @@ Ext.define('Admin.view.department.DepartmentViewController', {
     submitAddForm:function(btn){
       var win = btn.up('window');
       var form = win.down('form');
+      var store = btn.up('gridpanel').getStore();
       var record = Ext.create('Admin.model.department.DepartmentModel');
       //获取form数据
       var values = form.getValues();
       //console.log(values);
-      record.set(values);
-      record.save();
-      Ext.data.StoreManager.lookup('departmentStroe').load();
-      win.close();
+      //console.log(values.department_name);
+      if(values.departmentName != null && values.departmentNumber && values.createTime != null){
+    	  record.set(values);
+          record.save();          
+          //Ext.apply(store.proxy.extraParams, {departmentName:"",departmentNumber:"",createTimeStart:"",createTimeEnd:""});
+          //Ext.data.StoreManager.lookup('departmentStroe').load();
+          store.load();
+          win.close();
+      }else{
+    	  Ext.Msg.alert("Title","部门编号、部门名称和创建时间不能为空！！！");
+      }
+      
     },
 
     /*--------------------- 删 ---------------------------*/
@@ -32,10 +41,10 @@ Ext.define('Admin.view.department.DepartmentViewController', {
                     var store = grid.getStore();
                     //获取选中的行的信息
                     var record = store.getAt(rowIndex);
-                    //DELETE//http://localhost:8081/order/112
+                    //DELETE//http://localhost:8080/department/id
                     store.remove(record);
                     //重新加载数据
-                    Ext.data.StoreManager.lookup('userGridStroe').load();
+                    Ext.data.StoreManager.lookup('departmentStroe').load();
                     //store.sync();
                 }
             }
@@ -57,7 +66,7 @@ Ext.define('Admin.view.department.DepartmentViewController', {
     /*Edit Submit*/
     submitEditForm:function(btn){
         //获取当前window
-        var win    = btn.up('window');
+        var win = btn.up('window');
         //获取stroe
         var store = Ext.data.StoreManager.lookup('departmentStroe');
         //获取form数据
@@ -75,7 +84,7 @@ Ext.define('Admin.view.department.DepartmentViewController', {
         //根据reference获取combobox的值
         var searchField = this.lookupReference('searchFieldName').getValue();
         //根据combobox的值来控制文本框和日期框的显示和隐藏
-        if(searchField ==='create_time'){
+        if(searchField ==='createTime'){
             this.lookupReference('searchFieldValue').hide();
             this.lookupReference('searchDataFieldValue').show();
             this.lookupReference('searchDataFieldValue2').show();
@@ -95,23 +104,42 @@ Ext.define('Admin.view.department.DepartmentViewController', {
         //获取stroe
         var store = btn.up('gridpanel').getStore();
         //var store = Ext.getCmp('userGridPanel').getStore();// Ext.getCmp(）需要在OrderPanel设置id属性
+        
         //设置参数，默认为空
-        Ext.apply(store.proxy.extraParams, {department_name:"",department_number:"",createTimeStart:"",createTimeEnd:""});
+        Ext.apply(store.proxy.extraParams, {departmentName:"",departmentNumber:"",createTimeStart:"",createTimeEnd:""});
         //根据查询的对象，动态修改参数的值
-        if(searchField==='department_name'){
-            Ext.apply(store.proxy.extraParams, {department_name:searchValue});
+        if(searchField==='departmentName'){
+            Ext.apply(store.proxy.extraParams, {departmentName:searchValue});
+            this.lookupReference('searchFieldValue').setValue("");
         }
-        if(searchField==='department_number'){
-            Ext.apply(store.proxy.extraParams, {department_number:searchValue});
+        if(searchField==='departmentNumber'){
+            Ext.apply(store.proxy.extraParams, {departmentNumber:searchValue});
+            this.lookupReference('searchFieldValue').setValue("");
         }
-        if(searchField==='create_time'){
-            Ext.apply(store.proxy.extraParams,{
-                createTimeStart:Ext.util.Format.date(searchDataFieldValue, 'Y/m/d'),
-                createTimeEnd:Ext.util.Format.date(searchDataFieldValue2, 'Y/m/d')
-            });
+        if(searchField==='createTime'){
+        	if(searchDataFieldValue2 != null && searchDataFieldValue != null){
+        		if(searchDataFieldValue2 >= searchDataFieldValue){
+            		Ext.apply(store.proxy.extraParams,{
+                        createTimeStart:Ext.util.Format.date(searchDataFieldValue, 'Y/m/d'),
+                        createTimeEnd:Ext.util.Format.date(searchDataFieldValue2, 'Y/m/d')
+                    });           		
+            	}else{
+            		Ext.Msg.alert("Title","后面的时间不能小于前面的时间");
+            		return;
+            	}
+        	}else{
+        		Ext.apply(store.proxy.extraParams,{
+                    createTimeStart:Ext.util.Format.date(searchDataFieldValue, 'Y/m/d'),
+                    createTimeEnd:Ext.util.Format.date(searchDataFieldValue2, 'Y/m/d')
+                });
+        	}
+        	this.lookupReference('searchDataFieldValue').setValue("");
+    		this.lookupReference('searchDataFieldValue2').setValue("");
         }
         //发送请求
-        store.load({params:{start:0, limit:20, page:1}});
+        store.load(function(records, operation, success) {
+        	Ext.apply(store.proxy.extraParams, {departmentName:"",departmentNumber:"",createTimeStart:"",createTimeEnd:""});
+        });
     },
 
     /*Search More*/ 
@@ -130,17 +158,28 @@ Ext.define('Admin.view.department.DepartmentViewController', {
         //获取表单的数据
         var values  = form.getValues();
         //设置参数，默认为空
-        Ext.apply(store.proxy.extraParams, {department_name:"",department_number:"",createTimeStart:"",createTimeEnd:""});
+        Ext.apply(store.proxy.extraParams, {departmentName:"",departmentNumber:"",createTimeStart:"",createTimeEnd:""});
         //动态修改参数的值
         Ext.apply(store.proxy.extraParams,{
-            department_name:values.department_name,
-            department_number:values.department_number,
-            //将日期数据格式化
-            createTimeStart:Ext.util.Format.date(values.createTimeStart, 'Y/m/d'),
-            createTimeEnd:Ext.util.Format.date(values.createTimeEnd, 'Y/m/d')
+            departmentName:values.departmentName,
+            departmentNumber:values.departmentNumber
         });
+        if(searchDataFieldValue2 >= searchDataFieldValue){
+        	Ext.apply(store.proxy.extraParams,{
+                //将日期数据格式化
+                createTimeStart:Ext.util.Format.date(searchDataFieldValue, 'Y/m/d'),
+                createTimeEnd:Ext.util.Format.date(searchDataFieldValue2, 'Y/m/d')
+
+            });
+        }else{
+    		Ext.Msg.alert("Title","后面的时间不能小于前面的时间");
+    		return;
+    	}
+        
         //发送请求
-        store.load({params:{start:0, limit:20, page:1}});
+        store.load(function(records, operation, success) {
+        	Ext.apply(store.proxy.extraParams, {departmentName:"",departmentNumber:"",createTimeStart:"",createTimeEnd:""});
+        });
         //关闭Windos
         win.close();
     }   

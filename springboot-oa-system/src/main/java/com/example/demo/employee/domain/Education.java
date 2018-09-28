@@ -28,7 +28,7 @@ public class Education {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 	//学历
-	private String education_name;
+	private String educationName;
 	//学校
 	private String university;
 	//学院

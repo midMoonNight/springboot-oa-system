@@ -21,7 +21,7 @@ Ext.define('Admin.view.department.DepartmentEditWindow',{
         }, {
             xtype: 'textfield',
             fieldLabel: '部门名称',
-            name:'department_name'
+            name:'departmentName'
         }, {
             xtype: 'textfield',
             fieldLabel: '部门简介',

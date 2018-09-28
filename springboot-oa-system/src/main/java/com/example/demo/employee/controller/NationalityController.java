@@ -24,7 +24,7 @@ public class NationalityController {
 	@PostMapping
 	public ExtAjaxResponse save(@RequestBody Nationality nationality) {
 		try {
-			if (nationality.getNationality_name() != null) {
+			if (nationality.getNationalityName() != null) {
 				nationalityService.save(nationality);
 			}
 			return new ExtAjaxResponse(true, "保存成功!");

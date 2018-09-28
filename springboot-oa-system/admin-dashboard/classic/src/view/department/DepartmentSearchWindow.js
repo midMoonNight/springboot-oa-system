@@ -27,12 +27,12 @@ Ext.define('Admin.view.department.DepartmentSearchWindow',{
             readOnly: true
         }, {
             xtype: 'textfield',
-            fieldLabel: '部门名称',
-            name:'department_name'
+            fieldLabel: '部门编号',
+            name:'departmentNumber'
         }, {
             xtype: 'textfield',
-            fieldLabel: '部门编号',
-            name:'department_number'
+            fieldLabel: '部门名称',
+            name:'departmentName'
         }, {
 			xtype: 'datefield',
 			format: 'Y/m/d',

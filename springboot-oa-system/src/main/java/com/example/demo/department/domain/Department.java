@@ -37,10 +37,11 @@ public class Department {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	//部门名称
-	@Column(name="department_name",unique=true)
-	private String department_name;
+	@Column(unique=true)
+	private String departmentName;
 	//部门编号
-	private String department_number;
+	@Column(unique=true)
+	private String departmentNumber;
 	//部门简介
 	private String introduction;
 	//部门职责
@@ -48,14 +49,14 @@ public class Department {
 	//部门创建时间
 	@Temporal(TemporalType.DATE)
 	@JsonFormat(pattern="yyyy/MM/dd",timezone="GMT+8")
-	private Date create_time;
+	private Date createTime;
 	//部门的状态，是还在使用的部门，还是已经废除的部门
 	@Enumerated(EnumType.STRING)
 	private Status deptStatus = Status.activity;
 	//上级部门
 	@ManyToOne(cascade=CascadeType.ALL)
-	private Department department_parent;
+	private Department departmentParent;
 	//下级部门
-	@OneToMany(cascade=CascadeType.ALL,mappedBy="department_parent")
+	@OneToMany(cascade=CascadeType.ALL,mappedBy="departmentParent")
 	private List<Department> childrens = new ArrayList<>();
 }
