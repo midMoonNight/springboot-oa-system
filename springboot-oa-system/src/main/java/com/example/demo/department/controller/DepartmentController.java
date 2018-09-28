@@ -26,7 +26,6 @@ public class DepartmentController {
 	@Autowired
 	private IDepartmentService deptService;
 	
-	
 	/**
 	 * 增加一个部门
 	 */
